@@ -9,14 +9,13 @@ class App extends React.Component {
         this.handleClick = this.handleClick.bind(this)
     }
     
-    handleClick() {
+    handleClick(){
         this.setState(prevState => {
             return {
                 count: prevState.count + 1
             }
         })
     }
-    
     render() {
         return (
             <div>

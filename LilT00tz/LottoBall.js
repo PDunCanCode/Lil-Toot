@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { white } from 'ansi-colors';
-import { blockParams } from 'handlebars';
+import styled from 'styled-components'; 
 
 
 const StyledBall =styled.div`
-    .Ball {
     background-color: tomato;
     border-radius: 50%;
     color: white;
@@ -17,13 +14,13 @@ const StyledBall =styled.div`
     margin-right: 0.5em;
     font-weight: bold;
     font-size: 1.5em;
-
-}
 `;
 
 
-class Ball extends Commponent {
+class Ball extends Component {
     render() {
-        return <div></div>
+        return <div className='styledBall'>{this.props.num}</div>;
     }
 }
+
+export default Ball;

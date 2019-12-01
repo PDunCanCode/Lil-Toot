@@ -1,8 +1,12 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import ReactDOM from "react-dom"
 
-function getGithubProfile (tylermcginnis) {
-  const [profile, setProfile] = React.useState(tylermcginnis)
+function Profile () {
+  const [profile, setProfile] = React.useState(null)
+
+  React.useEffect(() => {
+    getGithubProfile ('tylermcginnis').then(setProfile)
+  })
   return fetch(`https://api.github.com/users/${username}`)
     .then((res) => res.json())
 }

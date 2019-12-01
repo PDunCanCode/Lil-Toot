@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from "react"
 import ReactDOM from "react-dom"
 
-function Profile (username) {
-  const [profile, setProfile] = React.useState(null)
+function Profile({ username }) {  const [profile, setProfile] = React.useState(null)
 
   React.useEffect(() => {
-    getGitHubProfile('username').then(setProfile)
-  }, [])
-  
-  fetch(`https://api.github.com/users/${username}`)
-    .then((res) => res.json())
-}
+    getGithubProfile(username)
+      .then(setProfile)
+  }, [username])
 
-function Profile() {
+  if (profile === null) {
+    return <p>Loading...</p>
+  }
+
   return (
-    <div>
-      <p>getGithubProfile will return an object full of properties 
-        related to the profile of whatever username you pass in as the first argument</p>
-
-      <p>Here's a sample response with the "username" of "tylermcginnis"</p>
-      <pre>
-        {JSON.stringify({
-          login: 'tylermcginnis',
-          avatar_url: 'https://avatars3.githubusercontent.com/u/2933430?v=4',
-          bio: 'Educating at TylerMcGinnis.com. Google Developer Expert. Previous Director at DevMountain.'
-        }, null, 2)}
-      </pre>
-    </div>
+    <React.Fragment>
+      <h1>@{profile.login}</h1>
+      <img
+        src={profile.avatar_url}
+        alt={`Avatar for ${profile.login}`}
+      />
+      <p>{profile.bio}</p>
+    </React.Fragment>
   );
 }
 

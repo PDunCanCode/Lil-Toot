@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
@@ -15,9 +15,27 @@ import "./styles.css";
 */
 
 function App() {
-  return (
+    const [input, setInput] = React.useState('')
+
+
+    React.useEffect(() => {
+        document.title = `${240 - input.length} charachters left`
+    }, [input])
+  
+    return (
     <div className="App">
-      Hello
+      <textarea
+      type='text'
+      value={input}
+      placeholder='Type'
+      onChange={(e) => setInput(e.target.value)}
+       />
+       <button
+       disabled={input.length ===0 || input.length>240}
+       onClick={() => console.log(input)}
+       >
+           Submit
+           </button>
     </div>
   );
 }

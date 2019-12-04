@@ -12,11 +12,28 @@ function useFetch (url) {
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = REact.useState(null)
     const [error, setError] = React.useState(null)
+
+    React.useEffect(() => {
+        setLoading(true)
+
+        fetch(url)
+        .then((res)=> res.join())
+        .then((data) => {
+            setData(data)
+            setError(null)
+            setLoading(false)
+        })
+        .catch((e) => {
+            console.warn(e.message)
+            setError('Error fetching DATA')
+            setLoading(false)
+        })
+    }, [url])
   
   return {
-    loading: true, 
-    data: null,
-    error: null
+    loading,
+    data,
+    error
   }
 }
 

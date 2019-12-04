@@ -9,6 +9,10 @@ import "./styles.css";
 */
 
 function useFetch (url) {
+    const [loading, setLoading] = React.useState(true)
+    const [data, setData] = REact.useState(null)
+    const [error, setError] = React.useState(null)
+  
   return {
     loading: true, 
     data: null,

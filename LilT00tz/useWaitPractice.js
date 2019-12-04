@@ -11,7 +11,18 @@ import "./styles.css";
 */
 
 function useWait (delay) {
-  return true
+    const [show, setShow] = React.useState(false)
+
+
+React.useEffect(() => {
+    const id= window.setTimeout(() => {
+        setShow(true)
+    }, delay)
+
+    return () => window.clearTimeout(id)
+}, [delay])
+
+  return show
 }
 
 function Wait({ delay = 1000, placeholder, ui }) {

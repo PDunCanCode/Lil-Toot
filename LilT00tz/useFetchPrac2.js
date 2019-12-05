@@ -23,34 +23,32 @@ function fetchReducer (state, action) {
   } else if (action.type === 'error'){
     return {
       ...state,
-      error: 'error fetching data'
+      error: 'error fetching data',
+      loading: false
     }
   }
 }
 
 function useFetch (url) {
-  const [loading, setLoading] = React.useState(true)
-  const [data, setData] = React.useState(null)
-  const [error, setError] = React.useState(null)
+  const [state, dispatch] = React.useReducer(
+    fetchReducer{ data: null, error: null, loading: true}
+  )
+
 
   React.useEffect(() => {
-    setLoading(true)
+    dispatch({ type: 'fetch' })
 
     fetch(url)
       .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-        setError(null)
-        setLoading(false)
-      })
+      .then((data) => dispatch({ type: 'success', data }))
       .catch((e) => {
         console.warn(e.message)
-        setError('Error fetching data. Try again.')
-        setLoading(false)
+        dispatch({ type: ' error' })
+      
       })
   }, [url])
 
-  return {loading, data, error}
+  return {loading: state.loading, data: state.data, error: state.error }
 }
 
 const postIds = [1,2,3,4,5,6,7,8]

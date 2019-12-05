@@ -8,32 +8,35 @@ import "./styles.css";
     Refactor `useFetch` to use `useReducer` instead of
     `useState`.
 */
+
 function fetchReducer (state, action) {
-  if (action.type === 'fetch') { 
+  if (action.type === 'fetch') {
     return {
-      ...state, 
+      ...state,
       loading: true
     }
   } else if (action.type === 'success') {
     return {
-      data: data.action,
+      data: action.data,
       error: null,
       loading: false
     }
-  } else if (action.type === 'error'){
+  } else if (action.type === 'error') {
     return {
       ...state,
-      error: 'error fetching data',
+      error: 'Error fetching data. Try again',
       loading: false
     }
+  } else {
+    throw new Error(`That action type isn't supported.`)
   }
 }
 
 function useFetch (url) {
   const [state, dispatch] = React.useReducer(
-    fetchReducer{ data: null, error: null, loading: true}
+    fetchReducer, 
+    { data: null, error: null, loading: true }
   )
-
 
   React.useEffect(() => {
     dispatch({ type: 'fetch' })
@@ -43,12 +46,15 @@ function useFetch (url) {
       .then((data) => dispatch({ type: 'success', data }))
       .catch((e) => {
         console.warn(e.message)
-        dispatch({ type: ' error' })
-      
+        dispatch({ type: 'error' })
       })
   }, [url])
 
-  return {loading: state.loading, data: state.data, error: state.error }
+  return {
+    loading: state.loading, 
+    data: state.data,
+    error: state.error
+  }
 }
 
 const postIds = [1,2,3,4,5,6,7,8]

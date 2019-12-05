@@ -8,6 +8,25 @@ import "./styles.css";
     Refactor `useFetch` to use `useReducer` instead of
     `useState`.
 */
+function fetchReducer (state, action) {
+  if (action.type === 'fetch') { 
+    return {
+      ...state, 
+      loading: true
+    }
+  } else if (action.type === 'success') {
+    return {
+      data: data.action,
+      error: null,
+      loading: false
+    }
+  } else if (action.type === 'error'){
+    return {
+      ...state,
+      error: 'error fetching data'
+    }
+  }
+}
 
 function useFetch (url) {
   const [loading, setLoading] = React.useState(true)

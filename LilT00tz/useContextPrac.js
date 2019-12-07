@@ -45,3 +45,27 @@ function App () {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+
+// Updated code for each component //
+
+export default function About() {
+    const { locale } = React.useContext('LocaleContext')
+    return (
+      <div>
+        <h1>About</h1>
+         <Employees locale={locale} />}
+        
+      </div>
+    );
+  }
+  export default function Blog() {
+    const { locale } = React.useContext(LocaleContext)
+  
+    return (
+      <div>
+        <h1>Blog</h1>
+        <Posts locale={locale} />
+      </div>
+    );
+  }
